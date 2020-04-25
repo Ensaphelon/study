@@ -1,9 +1,13 @@
 module Exercise
   module Arrays
     class << self
+      def max(array)
+        array.reduce { |acc, current | acc > current ? acc : current }
+      end
+
       def replace(array)
-        max = array.max
-        array.map { |number| number > 0 ? max : number }
+        maximum = max(array)
+        array.map { |number| number > 0 ? maximum : number }
       end
 
       def search(_array, _query, index = 0)
