@@ -2,36 +2,33 @@ module Exercise
   module Arrays
     class << self
       def max(array)
-        array.reduce { |acc, current | acc > current ? acc : current }
+        array.reduce do |acc, current|
+          acc > current ? acc : current
+        end
       end
 
       def replace(array)
         maximum = max(array)
-        array.map { |number| number > 0 ? maximum : number }
+        array.map do |number|
+          number.positive? ? maximum : number
+        end
       end
 
-      def search(_array, _query, index = 0)
-        length = _array.length
+      def search(array, query, index = 0)
+        length = array.length
 
-        if length == 0
-          return -1
-        end
+        return -1 if length == 0
+        return array[0] == query ? index : -1 if length == 1
 
-        if length == 1
-          return _array[0] == _query ? index : -1
-        end
-
-        left_part, right_part = _array.each_slice((_array.size/2.0).round).to_a
+        left_part, right_part = array.each_slice((array.size / 2.0).round).to_a
         current_value = left_part[-1]
 
-        if current_value == _query
-          return index
-        end
+        return index if current_value == query
 
-        if current_value < _query
-          self.search(right_part, _query, left_part.length + index)
+        if current_value < query
+          search(right_part, query, left_part.length + index)
         else
-          self.search(left_part, _query, index)
+          search(left_part, query, index)
         end
       end
     end
