@@ -33,11 +33,9 @@ module Exercise
         current_value = has_initial ? head : tail.first
         new_acc = yield(acc, current_value)
 
-        if tail.empty?
-          new_acc
-        else
-          MyArray.new(tail).my_reduce(initial ? new_acc : head, &func)
-        end
+        return new_acc if tail.empty?
+
+        MyArray.new(tail).my_reduce(initial ? new_acc : head, &func)
       end
     end
   end
