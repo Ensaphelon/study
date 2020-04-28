@@ -7,11 +7,9 @@ module Exercise
 
         yield head
 
-        if tail.empty?
-          acc
-        else
-          MyArray.new(tail).my_each(acc, &func)
-        end
+        return acc if tail.empty?
+
+        MyArray.new(tail).my_each(acc, &func)
       end
 
       def my_map
